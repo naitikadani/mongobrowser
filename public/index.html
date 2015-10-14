@@ -1,0 +1,42 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html>
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <link rel="shortcut icon" href="icon/mongobrowser.ico"><title> Mongo Browser</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="bower_components/angular-json-tree/build/angular-json-tree.css"><!-- load bootstrap -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"><!-- load bootstrap -->
+    <link rel="stylesheet" href="style.css"><!-- load bootstrap -->
+
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:0px; }
+        #todo-list              { margin-bottom:30px; }
+    </style>
+    <!-- SPELLS -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script><!-- load jquery -->
+    <script src="bower_components/angular/angular.min.js"></script><!-- load angular -->
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-json-tree/src/json-tree.js"></script>
+
+    <script src="bower_components/angular-json-tree/build/angular-json-tree.js"></script>
+
+    <script src="app.js"></script>
+    <script src="desktopui/mongoapp/scripts/controllers/mainctrl.js"></script>
+
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body> <!--ng-controller="mainController"-->
+    <ng-view></ng-view>
+
+
+</body>
+</html>

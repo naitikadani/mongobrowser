@@ -1,0 +1,21 @@
+{
+  "name": "mongo_example",
+  "main": "index.js",
+  "version": "0.0.0",
+  "description": "Mongo App Using Node",
+  "keywords": [
+    "node",
+    "mongo",
+    "express"
+  ],
+  "authors": [
+    "vishant"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.3.13",
+    "angular-route": "~1.3.13",
+    "jquery": "~2.1.3",
+    "bootstrap": "~3.3.2"
+  }
+}
