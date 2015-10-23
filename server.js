@@ -67,7 +67,27 @@ app.post('/connect',function(req,res){
     });
 
 });
+app.get('/mongodump',function(req,res){
+    var param = req.query;
 
+    var host = param.host;
+    var port = param.port;
+    var username = req.body.username;
+    var password = req.body.password;
+
+    var spawn = require('child_process').spawn;
+    var args = ['--host',host,'--port',port,'--db', 'pcat', '--collection', 'products','--out','/home/vishant/tmp']
+        , mongodump = spawn('/usr/bin/mongodump', args);
+        mongodump.stdout.on('data', function (data) {
+            console.log('stdout: ' + data);
+        });
+        mongodump.stderr.on('data', function (data) {
+            console.log('stderr: ' + data);
+        });
+        mongodump.on('exit', function (code) {
+            console.log('mongodump exited with code ' + code);
+        });
+});
 app.post('/mongodatabases', function(req, res) {
    /* var dbNames = []
     var adminDb = db.admin();
