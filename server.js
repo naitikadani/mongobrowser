@@ -67,16 +67,18 @@ app.post('/connect',function(req,res){
     });
 
 });
-app.get('/mongodump',function(req,res){
-    var param = req.query;
+app.post('/mongodump',function(req,res){
+    var param = req.body;
 
     var host = param.host;
     var port = param.port;
-    var username = req.body.username;
-    var password = req.body.password;
+    var dbNmae = param.dbname;
+    var collectionName = param.collectionname
+    var outputLocation = param.outputLocation
 
     var spawn = require('child_process').spawn;
-    var args = ['--host',host,'--port',port,'--db', 'pcat', '--collection', 'products','--out','/home/vishant/tmp']
+
+    var args = ['--host',host,'--port',port,'--db', dbNmae, '--collection', collectionName,'--out',outputLocation]
         , mongodump = spawn('/usr/bin/mongodump', args);
         mongodump.stdout.on('data', function (data) {
             console.log('stdout: ' + data);

@@ -108,6 +108,15 @@ app.controller('mainController',['$scope', '$http',
                 $scope.submit();
         }
 
+        $scope.createBackup = function(){
+            $http.post('/mongodump', $scope.formData).success(function(data) {
+                $scope.collections = data;
+                $scope.numberofcollections = $scope.collections.length;
+            })
 
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
+        }
     }
 ]);

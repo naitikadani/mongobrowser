@@ -40,13 +40,30 @@
                         <option ng-repeat="db in databases">{{db.name}}</option>
                     </select>
                 </div>
-                <div class="form-group col-lg-6">
+                <div class="form-group col-lg-3">
 
-                    <label>Database Name Explicit:</label><br>
+                    <label>Database:</label><br>
                     <input type="text" class="form-control input-sm focus" required ng-model="formData.dbname">
                 </div>
-            </div>
+                <div class="form-group col-lg-3">
 
+                    <label>Collection:</label><br>
+                    <input type="text" class="form-control input-sm focus"  ng-model="formData.collectionname">
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="form-group col-lg-9">
+
+                    <label>Output Folder Location</label><br>
+                    <input type="text" class="form-control input-sm focus" required ng-model="formData.outputLocation">
+                </div>
+                <div class="form-group col-lg-3">
+                    <br>
+                    <button type="submit" class="btn btn-success" ng-click="createBackup()">Backup</button>
+
+                </div>
+            </div>
         <div id="todo-form" class="row">
                     <div class="form-group col-lg-12">
                         <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
