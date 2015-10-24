@@ -16,6 +16,7 @@ app.controller('mainController',['$scope', '$http',
         $scope.formData.port = "27017";*/
         $scope.numberofdatabases = 0;
         $scope.numberofcollections = 0;
+        $scope.count = 0;
 
         $scope.isdataloaded = false;
 
@@ -47,6 +48,7 @@ app.controller('mainController',['$scope', '$http',
 
             $http.post('/mongodata', $scope.formData).success(function(data) {
                     $scope.jsondata = data;
+                    $scope.count = $scope.jsondata.length;
                     $scope.isdataloaded = true;
 
                 })
@@ -60,7 +62,8 @@ app.controller('mainController',['$scope', '$http',
             $scope.isdataloaded = false;
 
             $http.post('/mongoexecuteasits', $scope.formData).success(function(data) {
-                $scope.jsondata = data
+                $scope.jsondata = data;
+                $scope.count = $scope.jsondata.length;
                 $scope.isdataloaded = true;
 
             })
@@ -83,6 +86,7 @@ app.controller('mainController',['$scope', '$http',
                 });
             $scope.jsondata = [];
             $scope.isdataloaded = false;
+            $scope.count = 0;
         };
 
         $scope.getCollections = function() {
@@ -99,6 +103,7 @@ app.controller('mainController',['$scope', '$http',
             $scope.formData.text = "";
             $scope.jsondata = [];
             $scope.isdataloaded = false;
+            $scope.count = 0;
         };
 
         $scope.formData.text = "";
