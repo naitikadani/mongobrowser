@@ -45,10 +45,15 @@ app.controller('mainController',['$scope', '$http',
 
         $scope.submit = function() {
             $scope.isdataloaded = false;
+            $scope.startloader = true;
+            $scope.formData.p = $scope.currentPage;
+            $scope.formData.ps = $scope.pageSize;
 
             $http.post('/mongodata', $scope.formData).success(function(data) {
-                    $scope.jsondata = data;
-                    $scope.count = $scope.jsondata.length;
+                    $scope.jsondata = data.data;
+                    $scope.totalRecords = data.count;
+                    $scope.totalPage = Math.ceil(parseFloat($scope.totalRecords) / $scope.pageSize) ;
+                    $scope.startloader = false;
                     $scope.isdataloaded = true;
 
                 })
@@ -62,13 +67,19 @@ app.controller('mainController',['$scope', '$http',
             $scope.isdataloaded = false;
 
             $http.post('/mongoexecuteasits', $scope.formData).success(function(data) {
-                $scope.jsondata = data;
-                $scope.count = $scope.jsondata.length;
+                console.log(data);
+                if(data.result == '1'){
+                    console.log("success");
+                    $scope.submit();
+                }
+            /*    $scope.jsondata = data;
+                $scope.count = $scope.jsondata.length;*/
                 $scope.isdataloaded = true;
 
             })
                 .error(function(data) {
                     console.log('Error: ' + data);
+                    console.log("Failed");
                 });
         }
 
@@ -123,5 +134,42 @@ app.controller('mainController',['$scope', '$http',
                     console.log('Error: ' + data);
                 });
         }
+
+        $scope.pageSize = 20;
+        $scope.currentPage = 1;
+        $scope.totalRecords = 0;
+        $scope.totalPage = 0;
+        $scope.getFirstPage = function(){
+            if($scope.currentPage == 1){
+                return;
+            }
+            $scope.currentPage = 1;
+            getData();
+        };
+        $scope.getLastPage = function(){
+            if($scope.currentPage == $scope.totalPage){
+                return;
+            }
+            $scope.currentPage = $scope.totalPage;
+            getData();
+        };
+        $scope.getNextPage = function(){
+            if($scope.currentPage >= $scope.totalPage){
+                return;
+            }
+            $scope.currentPage += 1;
+            getData();
+        };
+        $scope.getPrevPage = function(){
+            if($scope.currentPage <= 1){
+                return;
+            }
+            $scope.currentPage -= 1;
+            getData();
+        };
+
+        var getData = function(){
+            $scope.submit();
+        };
     }
 ]);

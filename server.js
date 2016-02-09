@@ -56,12 +56,12 @@ app.post('/connect',function(req,res){
     }
 
     MongoClient.connect(mongourl, function(err, databaseconnection) {
-        console.log("Connected correctly to server");
         db= databaseconnection;
         if(!err){
-
+            console.log("Connected correctly to server");
             res.json('1');
         }else{
+            console.log(err);
             res.json('0');
         }
     });
@@ -113,20 +113,40 @@ app.post('/mongodatabases', function(req, res) {
 })
 
 app.post('/mongodata', function(req, res) {
+    var result1;
+    var result2;
     var myFunc = function(err, docs){
-        if (err)
-            res.send(err)
-        res.json(docs);
+        if (err)   {
+            result1 = err;
+        }
+        result1 = docs;
+        eval(getcount);
     }
+    var myCountFunc = function(err,count){
+        if(err){
+            result2 = err;
+        }
+        result2 = count;
+        res.json({count:result2,data:result1});
 
+    }
+    var param2 = req.body;
     var params = req.body.text;
+    var page 				= parseInt(param2['p']);
+    var pagesize 			= parseInt(param2['ps']);
+    var pageOffset 			= (page-1) * pagesize;
+    console.log("page:"+page+"pagesize:"+pagesize+"pageoffset:"+pageOffset);
 
     var splited = params.split(".");
     splited[1] = "collection('"+splited[1]+"')";
-    params = splited.join(".");
+    paramsjoined = splited.join(".");
 
-    params = params+".toArray(myFunc)";
+    params = paramsjoined+".skip("+pageOffset+").limit("+pagesize+").toArray(myFunc)";
+    getcount = paramsjoined+".count(myCountFunc)";
     eval(params);
+
+
+
 
 });
 
@@ -168,17 +188,22 @@ app.post('/mongocollections', function(req, res) {
 
 
 app.post('/mongoexecuteasits', function(req, res) {
+    var output;
+    var result;
     var callback = function(err, docs){
         if (err)  {
-            res.send(err)
+            output = err;
+            result = 0;
         }
-        res.json(docs);
+        output = docs;
+        result = 1;
+        res.json({data:output,result:result});
     }
 
     var params = req.body.text;
 
     var splited = params.split(".");
-    splited[1] = "collection('"+splited[1]+"')";
+    splited[1] = "collection('"+splited[1]+"',callback)";
     params = splited.join(".");
 
     params = params;

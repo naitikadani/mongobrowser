@@ -3,7 +3,7 @@
  */
 'use strict';
 
-var app = angular.module('abcTodo', ['ngRoute','angular-json-tree']);
+var app = angular.module('abcTodo', ['ngRoute','angular-json-tree']); //'angularUtils.directives.dirPagination'
 
 var options = {};
 options.api = {};

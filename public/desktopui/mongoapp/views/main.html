@@ -68,7 +68,7 @@
         <div id="todo-form" class="row">
                     <div class="form-group col-lg-12">
                         <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                        <textarea ng-disabled="connectionstatus!=true" style="max-width: 400px;height: 300px;background-color: seashell" type="text" placeholder="Enter Query" class="form-control input-lg" ng-model="formData.text"></textarea>
+                        <textarea ng-disabled="connectionstatus!=true" style="max-width: 400px;height: 260px;background-color: seashell" type="text" placeholder="Enter Query" class="form-control input-lg" ng-model="formData.text"></textarea>
                     </div>
 
             <div class="col-lg-offset-1">
@@ -103,12 +103,25 @@
                 <option ng-repeat="db in databases">{{db.name}}</option>
             </select>
         </div>-->
+       <div class="col-lg-5">
+           <label>Count : <b style="color: limegreen">{{totalRecords}}</b></label>  <button class="pull-right btn btn-primary"  ng-click="showjson=!showjson">
+           <label ng-if="showjson">Tree</label>
+           <label ng-if="!showjson">JSON</label>
+       </button>
+           <br/><br/>
+        <div style="border-left: solid #000000;min-height: 500px;max-height: 500px;max-width:500px;background-color: seashell;overflow-x: auto;overflow-y: auto">
 
-        <div class="col-lg-5" style="border-left: solid #000000;min-height: 580px;max-height: 580px;max-width:500px;background-color: seashell;overflow-x: auto;overflow-y: auto">
-            <label>Count : <b style="color: limegreen">{{count}}</b></label>
             <br>
-            <json-tree ng-if="isdataloaded" object="jsondata" start-expanded="true"></json-tree>
-            <label ng-if="!isdataloaded">No data to show</label>
+            <img src="../../../icon/495.GIF" ng-show="startloader" style="margin: 43%">
+            <pre style="overflow-x: scroll;max-width: 500px"  ng-if="isdataloaded && showjson">{{jsondata | json}}</pre>
+            <json-tree ng-if="isdataloaded && !showjson" object="jsondata" start-expanded="true"></json-tree>
+            <label ng-if="!isdataloaded && startloader == 'false'">No data to show</label>
+
         </div>
+       </div>
+
+        <div class="pull-right" ng-show="isdataloaded" style="padding-right: 30px"><a href title="First" class="icon-fast-backward" data-ng-click="getFirstPage()" ng-disabled="{{currentPage==1}}">First</a> <a href title="Previous" class="icon-double-angle-left" data-ng-click="getPrevPage()" ng-disabled="{{currentPage<=1}}">Previous</a>  Page {{currentPage}} Of {{totalPage}}  <a href title="Next" class="icon-double-angle-right" data-ng-click="getNextPage()" ng-disabled="{{currentPage>=totalPage}}">Next</a> <a href title="Last" class="icon-fast-forward" data-ng-click="getLastPage()" ng-disabled="{{currentPage==totalPage}}">Last</a>
+        </div>
+
     </div>
 </div>
