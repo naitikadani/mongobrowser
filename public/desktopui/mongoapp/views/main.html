@@ -91,7 +91,7 @@
         <div class="col-lg-3" style="max-width:350px;max-height:580px;overflow: auto">
             <label>List of Collections <b style="color: limegreen"> ({{numberofcollections}}) :</b></label><br>
             <div ng-repeat="collection in collections" style="white-space: nowrap">
-               <label class="glyphicon glyphicon-record" ng-click="setCollectionName(collection)" title="Click to find collections" style="cursor: pointer"> {{collection}}</label>
+               <label ng-class="{'glyphicon glyphicon-record selectedCollection' : $index==selectedId,'glyphicon glyphicon-record ':$index!=selectedId}" ng-click="setCollectionName(collection,$index)" title="Click to find collections" style="cursor: pointer"> {{collection}}</label>
             </div>
         </div>
  <!--       <div class="col-lg-3" >
