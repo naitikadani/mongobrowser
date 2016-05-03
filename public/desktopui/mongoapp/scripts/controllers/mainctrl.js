@@ -118,8 +118,10 @@ app.controller('mainController',['$scope', '$http',
         };
 
         $scope.formData.text = "";
+        $scope.selectedId = null;
 
-        $scope.setCollectionName = function (collection){
+        $scope.setCollectionName = function (collection,index){
+                $scope.selectedId = index;
                 $scope.formData.text = "db."+collection+".find()";
                 $scope.submit();
         }
